@@ -16,13 +16,14 @@
 						<?php if ( is_array($optionValue) ){ 
 							$i = 0;
 							foreach ($optionValue as $key => $value){
-							} ?>
+							?>
 							<tr>
 								<td><input type="text" name="key[<?php echo $i; ?>]" value="<?php echo $key; ?>" /></td>
 								<td><input type="text" name="value[<?php echo $i;?>]" value="<?php echo $value; ?>" /></td>
 							</tr>
 						<?php
 								$i++;
+							} 
 						 } else { ?>
 						 	<tr>
 						 		<td><input type="text" name="value" value="<?php echo $optionValue; ?>" /></td>
@@ -36,7 +37,9 @@
 					</table>
 				</td>
 		</table>
-		
+		<?php if ( is_array($optionValue) ){ ?>		
+			<p><a href="#" class="button-secondary" title="Add New Row" id="add_row">Add New Row</a></p>			
+		<?php } ?>
 		<p class="submit">
 			<input class="button-primary" type="submit" value="Save" id="submitbutton" />
 		</p>

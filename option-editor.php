@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Option Editor
-Plugin URI: github.com/icambridge/option-editor
+Plugin URI: http://github.com/icambridge/option-editor
 Description: Allows you to manaually edito internal WordPress options without access MySQL manually.
 Author: Iain Cambridge
 Author URI: http://backie.org
@@ -9,12 +9,28 @@ Version: 1.0
 */
 define("OPT_DIR",dirname(__FILE__));
 
+	/**
+	 * Option editor plugin for WordPress, allows
+	 * to manually edit internal options of WordPress
+	 * useful if you're developing a new upgrade system.
+	 * 
+	 * @author Iain Cambridge
+	 * @license New BSD License
+	 * @copyright All rights reserved Iain Cambridge 2011 
+	 */
+
 class OptionEditorPlugin {
 	
 	public function __construct(){
 		
 		add_action("admin_menu", array($this,"admin_menu"));
+		add_action("admin_init", array($this,"admin_init"));
 		
+	}
+	
+	public function admin_init(){
+		
+		wp_enqueue_script("option-editor",plugins_url('/js/option-editor.js',__FILE__));
 	}
 	
 	public function admin_menu(){
@@ -36,22 +52,20 @@ class OptionEditorPlugin {
 				$pageFile = '/views/edit.php';
 							
 			} else {
+				
 				if ( is_array($_POST['value']) ){
 					$optionValue = array_combine($_POST['key'],$_POST['value']);
 					var_dump($optionValue);
 				} else {
 					$optionValue = $_POST['value'];
 				}
-				var_dump($_POST['option_name']);
-				if ( !update_option($_POST['option_name'],$optionValue) ){
-					echo "fail";
-				} else {
-					echo "win";
-				}
+				
+				update_option($_POST['option_name'],$optionValue);
 			
 			}
 			
 		} 
+		ksort($optionList);
 		
 		require_once OPT_DIR.$pageFile;
 	}

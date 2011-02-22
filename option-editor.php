@@ -57,7 +57,15 @@ class OptionEditorPlugin {
 					$optionValue = array_combine($_POST['key'],$_POST['value']);
 					var_dump($optionValue);
 				} else {
-					$optionValue = $_POST['value'];
+					
+					switch($_POST['type']){
+						case 'boolean':
+							$optionValue = (bool)$_POST['value'];
+						case 'integer':
+							$optionValue = (int)$_POST['value'];
+						default:
+							$optionValue = $_POST['value'];
+					}
 				}
 				
 				update_option($_POST['option_name'],$optionValue);

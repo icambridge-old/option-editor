@@ -55,7 +55,6 @@ class OptionEditorPlugin {
 				
 				if ( is_array($_POST['value']) ){
 					$optionValue = array_combine($_POST['key'],$_POST['value']);
-					var_dump($optionValue);
 				} else {
 					
 					switch($_POST['type']){
@@ -69,9 +68,9 @@ class OptionEditorPlugin {
 				}
 				
 				update_option($_POST['option_name'],$optionValue);
+				$message = "Option updated!";
 			
 			}
-			
 		} 
 		ksort($optionList);
 		

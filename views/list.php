@@ -5,6 +5,9 @@
 		Option Editor
 	</h2>
 
+	<?php if (isset($message)) { ?>
+	<div class="updated"><?php echo $message; ?></div>
+	<?php } ?>
 	<form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
 		<input type="hidden" name="step" value="1" />
 		<table class="form-table">
